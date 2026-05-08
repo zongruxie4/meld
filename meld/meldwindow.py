@@ -466,6 +466,8 @@ class MeldWindow(Gtk.ApplicationWindow):
         self.scheduler.add_scheduler(doc.scheduler)
         path = gfile.get_path()
         doc.set_location(path)
+        # Ensure that we have the correct state for the file we're opening
+        doc.vc.refresh_vc_state()
         doc.create_diff_signal.connect(
             lambda obj, arg, kwargs: self.append_diff(arg, **kwargs))
         doc.run_diff(path)
